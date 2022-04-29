@@ -1,10 +1,4 @@
-# import sys
-
-# from loguru import logger
 from pydantic import BaseModel, Field
-
-# import logging
-# from app.core.logging import InterceptHandler
 
 
 # Class containing the env vars of the consumer
@@ -20,8 +14,3 @@ consumer_config = ConsumerConfig()
 
 # Kafka URL
 KAFKA_INSTANCE = consumer_config.KAFKA_URI + ":" + consumer_config.KAFKA_PORT
-
-# Configure logging
-# LOGGING_LEVEL = logging.DEBUG if consumer_config.DEBUG else logging.INFO
-# logging.basicConfig(handlers=[InterceptHandler(level=LOGGING_LEVEL)], level=LOGGING_LEVEL)
-# logger.configure(handlers=[{"sink": sys.stderr, "level": LOGGING_LEVEL}])

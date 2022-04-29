@@ -1,10 +1,4 @@
-import sys
-
-# from loguru import logger
 from pydantic import BaseModel, Field
-
-# import logging
-# from app.core.logging import InterceptHandler
 
 
 class ProducerConfig(BaseModel):
@@ -19,11 +13,3 @@ producer_config = ProducerConfig()
 
 # Kafka_broker URL
 KAFKA_INSTANCE = producer_config.KAFKA_URI + ":" + producer_config.KAFKA_PORT
-
-# Logging setup
-# LOGGING_LEVEL = logging.DEBUG if producer_config.DEBUG else logging.INFO
-# logging.basicConfig(handlers=[InterceptHandler(level=LOGGING_LEVEL)], level=LOGGING_LEVEL)
-# logger.configure(handlers=[{"sink": sys.stderr, "level": LOGGING_LEVEL}])
-
-# env_file:
-#       - ./geostream/.env
