@@ -1,5 +1,5 @@
 import pytest
-from app.core.models.model import ConsumerResponse
+from consumer.app.core.models.model import ConsumerResponse
 from pydantic import ValidationError
 
 

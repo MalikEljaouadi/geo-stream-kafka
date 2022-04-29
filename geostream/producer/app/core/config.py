@@ -1,7 +1,7 @@
 import logging
 import sys
 
-from app.core.logging import InterceptHandler
+from producer.app.core.logging import InterceptHandler
 from loguru import logger
 from starlette.config import Config
 

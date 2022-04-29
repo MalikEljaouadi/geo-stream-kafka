@@ -1,22 +1,27 @@
-import logging
 import sys
 
-from app.core.logging import InterceptHandler
 from loguru import logger
-from starlette.config import Config
+from pydantic import BaseModel, Field
 
-config = Config(".env")
+import logging
+from consumer.app.core.logging import InterceptHandler
 
 
-PROJECT_NAME: str = config("PROJECT_NAME", default="geostream-kafka-consumer")
-KAFKA_URI: str = config("KAFKA_URI")
-KAFKA_PORT: str = config("KAFKA_PORT")
-KAFKA_INSTANCE = KAFKA_URI + ":" + KAFKA_PORT
-DEBUG: bool = config("DEBUG", cast=bool, default=False)
+# Class containing the env vars of the consumer
+class ConsumerConfig(BaseModel):
+    PROJECT_NAME: str = Field(default="geostream-kafka-consumer", description="name of the project", env="PROJECT_NAME")
+    KAFKA_URI: str = Field(default="0.0.0.0", env="KAFKA_URI")
+    KAFKA_PORT: str = Field(default=9092, env="KAFKA_PORT")
+    DEBUG: bool = Field(default=False, env="DEBUG")
 
-LOGGING_LEVEL = logging.DEBUG if DEBUG else logging.INFO
 
-logging.basicConfig(
-    handlers=[InterceptHandler(level=LOGGING_LEVEL)], level=LOGGING_LEVEL
-)
+# Initialize the ConsumerConfig class
+consumer_config = ConsumerConfig()
+
+# Kafka URL
+KAFKA_INSTANCE = consumer_config.KAFKA_URI + ":" + consumer_config.KAFKA_PORT
+
+# Configure logging
+LOGGING_LEVEL = logging.DEBUG if consumer_config.DEBUG else logging.INFO
+logging.basicConfig(handlers=[InterceptHandler(level=LOGGING_LEVEL)], level=LOGGING_LEVEL)
 logger.configure(handlers=[{"sink": sys.stderr, "level": LOGGING_LEVEL}])

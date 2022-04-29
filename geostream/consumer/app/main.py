@@ -3,9 +3,9 @@ import json
 import typing
 
 from aiokafka import AIOKafkaConsumer
-from app.core.config import KAFKA_INSTANCE
-from app.core.config import PROJECT_NAME
-from app.core.models.model import ConsumerResponse
+from consumer.app.core.config import KAFKA_INSTANCE
+from consumer.app.core.config import PROJECT_NAME
+from consumer.app.core.models.model import ConsumerResponse
 from fastapi import FastAPI
 from fastapi import WebSocket
 from loguru import logger
