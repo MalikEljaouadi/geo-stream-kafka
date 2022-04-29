@@ -3,9 +3,10 @@ import json
 import typing
 
 from aiokafka import AIOKafkaConsumer
-from consumer.app.core.config import KAFKA_INSTANCE
-from consumer.app.core.config import PROJECT_NAME
-from consumer.app.core.models.model import ConsumerResponse
+from app.core.config import KAFKA_INSTANCE
+# from app.core.config import PROJECT_NAME
+from app.core.config import consumer_config
+from app.core.models.model import ConsumerResponse
 from fastapi import FastAPI
 from fastapi import WebSocket
 from loguru import logger
@@ -13,7 +14,7 @@ from starlette.endpoints import WebSocketEndpoint
 from starlette.middleware.cors import CORSMiddleware
 
 
-app = FastAPI(title=PROJECT_NAME)
+app = FastAPI(title=consumer_config.PROJECT_NAME)
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
 
 
@@ -44,7 +45,7 @@ class WebsocketConsumer(WebSocketEndpoint):
         self.consumer = AIOKafkaConsumer(
             topicname,
             loop=loop,
-            client_id=PROJECT_NAME,
+            client_id=consumer_config.PROJECT_NAME,
             bootstrap_servers=KAFKA_INSTANCE,
             enable_auto_commit=False,
         )

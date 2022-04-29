@@ -2,18 +2,19 @@ import asyncio
 import json
 
 from aiokafka import AIOKafkaProducer
-from producer.app.core.config import KAFKA_INSTANCE
-from producer.app.core.config import PROJECT_NAME
-from producer.app.core.models.model import ProducerMessage
-from producer.app.core.models.model import ProducerResponse
+from app.core.config import KAFKA_INSTANCE
+# from app.core.config import PROJECT_NAME
+from app.core.config import producer_config
+from app.core.models.model import ProducerMessage
+from app.core.models.model import ProducerResponse
 from fastapi import FastAPI
 from loguru import logger
 
-app = FastAPI(title=PROJECT_NAME)
+app = FastAPI(title=producer_config.PROJECT_NAME)
 
 loop = asyncio.get_event_loop()
 aioproducer = AIOKafkaProducer(
-    loop=loop, client_id=PROJECT_NAME, bootstrap_servers=KAFKA_INSTANCE
+    loop=loop, client_id=producer_config.PROJECT_NAME, bootstrap_servers=KAFKA_INSTANCE
 )
 
 
